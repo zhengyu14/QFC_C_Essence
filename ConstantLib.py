@@ -9,4 +9,9 @@ jqDataPassword = 'Yu19920125'
 '''
 Security ID
 '''
-securityIDCodeSP500INX = '99564.INX'
+securityIDCode000001XSHE = '000001.XSHE'
+
+'''
+Message text
+'''
+msgInvalidSecurityIDCode = 'Invalid security ID or code.'
