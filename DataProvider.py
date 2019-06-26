@@ -36,9 +36,9 @@ class dataProvider:
     #   field: 'None' means default ['open', 'close', 'high', 'low', 'volume', 'money']
     #   skip_paused: 'True' means skipping none-trading date (停牌, 未上市或者退市后)
     #   fq: 复权选项: 'pre': 前复权; None: 不复权, 返回实际价格; 'post': 后复权
-    def get_security_data(self, startDatetime, endDatetime):
+    def get_security_data_min(self, startDatetime, endDatetime):
         try:
-            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency='daily', fields=None, skip_paused=True, fq='pre')
+            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency='minute', fields=None, skip_paused=True, fq='pre')
         except:
             self.add_log(cl.msgInvalidSecurityIDCode)
         return self.securityData    
