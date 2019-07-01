@@ -4,18 +4,13 @@ import ConstantLib as cl
 import pandas as pd
 
 class dataProvider:
-<<<<<<< HEAD
     # Attributes
     securityIDCode = cl.securityIDCode000001XSHE # default as 000001.XSHE
     securityData = pd.DataFrame()
     allSecurityIndex  =  pd.DataFrame()
     log = []   
     
-
-    # Initialize instance and log-in JQData
-=======
     # Initialize instance
->>>>>>> 0a44f6ec3f59d1478883fcdda2f5e4d5e9a02707
     def __init__(self):
         # Initialize attributes
         self.securityIDCode = cl.securityIDCode000001XSHE # default as 000001.XSHE
@@ -57,8 +52,8 @@ class dataProvider:
         try:
             self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='pre')
         except:
-<<<<<<< HEAD
             self.add_log(cl.msgInvalidSecurityIDCode)
+        self._logout_jqdata()
         return self.securityData    
     
     # Get factor value of all stocks 
@@ -72,14 +67,6 @@ class dataProvider:
                                                ), date) #2019-01-01'
         except:
             self.add_log(cl.msgInvalidSecurityIDCode)
-        return self.securityData
-        
-    
-        
-    
-=======
-            self._add_log(cl.msgInvalidSecurityIDCode)
-        self._logout_jqdata()
         return self.securityData
 
     # Get alpha data
@@ -120,4 +107,3 @@ class dataProvider:
     def _add_log(self, message):
         if message != '':
             self.log.append(message)
->>>>>>> 0a44f6ec3f59d1478883fcdda2f5e4d5e9a02707

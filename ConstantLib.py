@@ -29,13 +29,12 @@ tinysoftAlphaCols = ['Alpha003','Alpha004','Alpha005','Alpha006','Alpha008',
 Message text
 '''
 msgInvalidSecurityIDCode = 'Invalid security ID or code.'
-<<<<<<< HEAD
+msgLoginTinysoftFailed = 'Failed to log-in Tinysoft.'
 
 '''
 Factor name
 '''
 factorPbRatio = jqd.valuation.pb_ratio
 factorCirculatingMarketCap = jqd.valuation.circulating_market_cap
-=======
 msgLoginTinysoftFailed = 'Failed to log-in Tinysoft.'
->>>>>>> 0a44f6ec3f59d1478883fcdda2f5e4d5e9a02707
+
