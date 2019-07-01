@@ -50,8 +50,10 @@ class dataProvider:
     # Get alpha data
     def get_alpha(self):
         self._login_tinysoft()
-        alphaData3 = tsl.Get101alphaByID(3)
+        result = tsl.RemoteCallFunc("setsysparam",['SZ000002'],{})
+        alphaData = tsl.RemoteCallFunc("Get101alphaByID",[3],{})
         self._logout_tinysoft()
+        return alphaData
     
     '''
     Private functions
