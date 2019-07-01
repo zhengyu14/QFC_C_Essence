@@ -4,6 +4,12 @@ import ConstantLib as cl
 import pandas as pd
 
 class dataProvider:
+    # Attributes
+    securityIDCode = cl.securityIDCode000001XSHE # default as 000001.XSHE
+    securityData = pd.DataFrame()
+    allSecurityIndex  =  pd.DataFrame()
+    log = []   
+    
     # Initialize instance
     def __init__(self):
         # Initialize attributes
@@ -24,6 +30,9 @@ class dataProvider:
     def set_security_id_code(self, securityID, securityCode):
         if securityID is not None and securityCode is not None:
             self.securityIDCode = securityID + '.' + securityCode
+            
+    def get_allSecurityIndex(self):
+        self.allSecurityIndex = jqd.get_all_securities(['stock']).index # get all stock id
     
     # Get security data
     #   field: 'None' means default ['open', 'close', 'high', 'low', 'volume', 'money']
@@ -43,8 +52,21 @@ class dataProvider:
         try:
             self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='pre')
         except:
-            self._add_log(cl.msgInvalidSecurityIDCode)
+            self.add_log(cl.msgInvalidSecurityIDCode)
         self._logout_jqdata()
+        return self.securityData    
+    
+    # Get factor value of all stocks 
+    def get_Factor(self, date, factor_name):
+        try:
+            self.securityData = jqd.get_fundamentals(jqd.query
+                                      (jqd.valuation.code,factor_name
+                                       ).filter(
+                                               #jqd.valuation.code == self.securityIDCode
+                                               jqd.valuation.code.in_(self.allSecurityIndex)
+                                               ), date) #2019-01-01'
+        except:
+            self.add_log(cl.msgInvalidSecurityIDCode)
         return self.securityData
 
     # Get alpha data
