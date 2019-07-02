@@ -1,5 +1,5 @@
 import jqdatasdk as jqd
-import TSLPy3 as tsl
+#import TSLPy3 as tsl
 import ConstantLib as cl
 import pandas as pd
 
