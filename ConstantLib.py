@@ -36,5 +36,3 @@ Factor name
 '''
 factorPbRatio = jqd.valuation.pb_ratio
 factorCirculatingMarketCap = jqd.valuation.circulating_market_cap
-msgLoginTinysoftFailed = 'Failed to log-in Tinysoft.'
-

@@ -1,5 +1,5 @@
 import jqdatasdk as jqd
-import TSLPy3 as tsl
+#import TSLPy3 as tsl # Removed since cannot be used on MacOS 
 import ConstantLib as cl
 import pandas as pd
 
@@ -52,7 +52,7 @@ class dataProvider:
         try:
             self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='pre')
         except:
-            self.add_log(cl.msgInvalidSecurityIDCode)
+            self._add_log(cl.msgInvalidSecurityIDCode)
         self._logout_jqdata()
         return self.securityData    
     
@@ -66,9 +66,11 @@ class dataProvider:
                                                jqd.valuation.code.in_(self.allSecurityIndex)
                                                ), date) #2019-01-01'
         except:
-            self.add_log(cl.msgInvalidSecurityIDCode)
+            self._add_log(cl.msgInvalidSecurityIDCode)
         return self.securityData
 
+    '''
+    # Removed since cannot be used on MacOS
     # Get alpha data
     def get_alpha(self):
         self._login_tinysoft()
@@ -76,6 +78,7 @@ class dataProvider:
         alphaData = tsl.RemoteCallFunc("Get101alphaByID",[3],{})
         self._logout_tinysoft()
         return alphaData
+    '''
     
     '''
     Private functions
@@ -89,6 +92,8 @@ class dataProvider:
     def _logout_jqdata(self):
         jqd.logout()
 
+    '''
+    # Removed since cannot be used on MacOS
     # Log-in Tinysoft
     def _login_tinysoft(self):
         tsl.ConnectServer(cl.tinysoftServer, cl.tinysoftPort)
@@ -104,6 +109,7 @@ class dataProvider:
     # Log-out Tinysoft
     def _logout_tinysoft(self):
         tsl.Disconnect()
+    '''
 
     # Log a new message
     def _add_log(self, message):
