@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import ConstantLib as cl
 import pandas as pd
 
 # this function is used to reallocation the portfolio to the target component
@@ -25,7 +26,6 @@ def reallocate(id_target, id_original):
             ##### 买入 id_target[i]
             
 
-
 # this function is designed to be use in back test, and it's only an one-period adjustment
 def onePeriodAdj(factor_df): # df contains two columns, first is stock id, second is factor values
     factor_df.columns = ['stock_id', 'factor_value']
@@ -36,7 +36,7 @@ def onePeriodAdj(factor_df): # df contains two columns, first is stock id, secon
     ### 如果不能整除，舍弃最后几条数据？
     
     # get target subportfolios' stock id
-    portfolioTarget_df = pd.DataFrame(columns = ['subP1','subP2','subP3','subP4','subP5','subP6','subP7','subP8','subP9','subP10',])
+    portfolioTarget_df = pd.DataFrame(columns = cl.subPortfolioName)
     count_temp = 0
     for i in portfolioTarget_df.columns:
         portfolioTarget_df[i] = factor_df['stock_id'].iloc[count_temp*numberInSubportfolio:(count_temp+1)*numberInSubportfolio].values
