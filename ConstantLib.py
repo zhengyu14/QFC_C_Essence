@@ -1,5 +1,7 @@
 # Constants
 
+import jqdatasdk as jqd
+
 '''
 JQData platform
 '''
@@ -28,3 +30,15 @@ Message text
 '''
 msgInvalidSecurityIDCode = 'Invalid security ID or code.'
 msgLoginTinysoftFailed = 'Failed to log-in Tinysoft.'
+
+'''
+Subportfolio name
+'''
+
+subPortfolioName = ['subP1','subP2','subP3','subP4','subP5','subP6','subP7','subP8','subP9','subP10']
+
+'''
+Factor name
+'''
+factorPbRatio = jqd.valuation.pb_ratio
+factorCirculatingMarketCap = jqd.valuation.circulating_market_cap
