@@ -9,7 +9,6 @@ jqDataID = '18068008158'
 jqDataPassword = 'Yu19920125'
 jqDataFreqDaily = 'daily'
 jqDataFreqMin = 'minute'
-jqAlpha
 securityIDCode000001XSHE = '000001.XSHE'
 
 '''
