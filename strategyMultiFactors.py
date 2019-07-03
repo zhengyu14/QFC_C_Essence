@@ -1,7 +1,9 @@
 # 导入函数库
 from jqdata import *
 from jqfactor import Factor, calc_factors
+from jqlib.alpha101 import *
 import datetime
+import pandas as pd
 import numpy as np
 
 '''
@@ -63,9 +65,10 @@ def market_open(context):
     rebalance_position(context, stock_list)
     '''
     stock_list_all = get_index_stocks(cnst_index)
-    factor_values = get_factor_values(context, [factor_tech_boll_down()], stock_list_all)
-    boll_down = factor_values[cnst_factor_name_boll_down]
-    final_factor = boll_down.rank(ascending = True)
+    #factor_values = get_factor_values(context, [factor_tech_boll_down()], stock_list_all)
+    #boll_down = factor_values[cnst_factor_name_boll_down]
+    #final_factor = boll_down.rank(ascending = True)
+    final_factor = alpha_001(context.current_dt.date(), stock_list_all)
     try:
         stock_list_tagrget = list(final_factor.sort_values(ascending=False)[:20].index)
     except:
@@ -137,6 +140,7 @@ class factor_tech_boll_down(Factor):
         close_today = close.iloc[len(data[cnst_col_name_close]) - 1]
         boll_down = (close.rolling(self.m).mean().iloc[len(data[cnst_col_name_close]) - 1] - 2 * close.std()) / close_today
         return boll_down
+    
 
 # GROSS_PROFITABILITY
 # 参考链接：https://www.joinquant.com/post/6585
