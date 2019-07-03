@@ -1,5 +1,4 @@
 import jqdatasdk as jqd
-#import TSLPy3 as tsl # Removed since cannot be used on MacOS
 import ConstantLib as cl
 import pandas as pd
 
@@ -70,17 +69,6 @@ class dataProvider:
         return self.securityData
 
     '''
-    # Removed since cannot be used on MacOS
-    # Get alpha data
-    def get_alpha(self):
-        self._login_tinysoft()
-        result = tsl.RemoteCallFunc("setsysparam",['SZ000002'],{})
-        alphaData = tsl.RemoteCallFunc("Get101alphaByID",[3],{})
-        self._logout_tinysoft()
-        return alphaData
-    '''
-
-    '''
     Private functions
     '''
     # Log-in JQData
@@ -91,25 +79,6 @@ class dataProvider:
     # Log-out JQData
     def _logout_jqdata(self):
         jqd.logout()
-
-    '''
-    # Removed since cannot be used on MacOS
-    # Log-in Tinysoft
-    def _login_tinysoft(self):
-        tsl.ConnectServer(cl.tinysoftServer, cl.tinysoftPort)
-        dl = tsl.LoginServer(cl.tinysoftID, cl.tinysoftPassword)
-        if dl[0] == 0:
-            tsl.SetComputeBitsOption(64)
-        try:
-            test = tsl.RemoteExecute("return 1;", {})
-            test[1]+1
-        except:
-            self._add_log(cl.msgLoginTinysoftFailed)
-
-    # Log-out Tinysoft
-    def _logout_tinysoft(self):
-        tsl.Disconnect()
-    '''
 
     # Log a new message
     def _add_log(self, message):
