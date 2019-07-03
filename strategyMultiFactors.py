@@ -7,23 +7,28 @@ import pandas as pd
 import numpy as np
 
 # Constants
-cnst_index = '000300.XSHG'
+cnst_index = '000905.XSHG'
 cnst_factor_name_boll_down = 'boll_down'
 cnst_col_name_close = 'close'
-
+cnst_commision = 0
 
 # 策略初始化
 def initialize(context):
     set_benchmark(cnst_index)
     set_option('use_real_price', True)
     log.set_level('order', 'error')
-    set_order_cost(OrderCost(close_tax=0, open_commission=0, close_commission=0, min_commission=0), type='stock')
+    set_order_cost(OrderCost(close_tax = 0, 
+                             open_commission = cnst_commision, 
+                             close_commission = cnst_commision, 
+                             min_commission = 0), 
+                             type = 'stock')
+
     # Monthly portfolio reallocation
     run_monthly(market_open, 1, time='open', reference_security=cnst_index)
 
 '''
 ######################策略的交易逻辑######################
-每周计算因子值， 并买入前 20 支股票
+每月计算因子值， 并买入前 10% 支股票
 '''
 
 # Reallocate portflio monthly when market opens
@@ -52,9 +57,9 @@ def market_open(context):
     # 4. 由因子确定每日持仓的股票列表：
     #    采用因子值由大到小排名前 20 只股票作为目标持仓
     try:
-        stock_list = list(final_factor.sort_values(ascending=False)[:20].index)
+        stock_list = list(final_factor.sort_values(ascending=False)[:30].index)
     except:
-        stock_list = list(final_factor.order(ascending=False)[:20].index)
+        stock_list = list(final_factor.order(ascending=False)[:30].index)
 
     # 5. 根据股票列表进行调仓：
     #    这里采取所有股票等额买入的方式，您可以使用自己的风险模型自由发挥个股的权重搭配
