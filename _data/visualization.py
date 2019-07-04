@@ -1,9 +1,13 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-data1 = pd.read_csv('result_001_w_0010_2y.csv')
+alpha_num = '001'
+file_name_top10 = 'result_'+alpha_num+'_w_0010_2y.csv'
+file_name_buttom10 = 'result_'+alpha_num+'_w_90100_2y.csv'
+
+data1 = pd.read_csv(file_name_top10)
 #data2 = pd.read_csv('result_001_w_0010_2y.csv')
-data3 = pd.read_csv('result_002_w_90100_2y.csv')
+data3 = pd.read_csv(file_name_buttom10)
 fig = plt.figure()
 ax = plt.subplot(111)
 ax.plot(data1['Datetime'], data1['Benchmark'], color='#678BC7', label='Benchmark')
