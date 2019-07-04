@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 
 # Constants
-cnst_index = '000905.XSHG'
+cnst_index = '000300.XSHG'
 cnst_factor_name_boll_down = 'boll_down'
 cnst_col_name_close = 'close'
 cnst_commision = 0
@@ -24,7 +24,8 @@ def initialize(context):
                              type = 'stock')
 
     # Monthly portfolio reallocation
-    run_monthly(market_open, 1, time='open', reference_security=cnst_index)
+    run_weekly(market_open, 1, time='open', reference_security=cnst_index)(market_open, 1, time='open', reference_security=cnst_index)
+    #run_monthly(market_open, 1, time='open', reference_security=cnst_index)
 
 '''
 ######################策略的交易逻辑######################
@@ -38,7 +39,7 @@ def market_open(context):
     #    建议使用与 benchmark 相同的指数，方便判断选股带来的 alpha
     stock_list_all = get_index_stocks(cnst_index)
 
-    # 2. 获取因子值
+    # 2. Get factor
     #    get_factor_values 有三个参数，context、因子列表、股票池，
     #    返回值是一个 dict，key 是因子类的 name 属性，value 是 pandas.Series
     #    Series 的 index 是股票代码，value 是当前日期能看到的最新因子值
@@ -55,9 +56,18 @@ def market_open(context):
     final_factor = alpha_001(context.current_dt.date(), stock_list_all)
 
     # 4. 由因子确定每日持仓的股票列表：
-    #    采用因子值由大到小排名前 20 只股票作为目标持仓
+    #    采用因子值由大到小排名10%只股票作为目标持仓
     try:
         stock_list = list(final_factor.sort_values(ascending=False)[:30].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[30:60].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[60:90].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[90:120].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[120:150].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[150:180].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[180:210].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[210:240].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[240:270].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[270:300].index)
     except:
         stock_list = list(final_factor.order(ascending=False)[:30].index)
 
