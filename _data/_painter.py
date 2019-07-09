@@ -1,3 +1,7 @@
+# File naming convention:
+# result_[alpha number]_[frequency]_[data percent]_[time interval].csv
+# e.g. result_001_w_0010_2y: top 10% of 2 year data of alpha 001 run weekly
+# e.g. result_001_w_90100_2y: bottom 10% of 2 year data of alpha 001 run weekly
 import matplotlib.pyplot as plt
 import pandas as pd
 import math
@@ -56,7 +60,7 @@ class painter:
 
     def show_factor_single(self, alpha_num):
         alpha_num_3 = "%03d" % alpha_num
-        file_name_top10 = 'result_'+str(alpha_num_3)+'.csv'
+        file_name_top10 = 'result_'+str(alpha_num_3)+'_w_0010_2y.csv'
         file_name_40_50 = 'result_'+str(alpha_num_3)+'_w_4050_2y.csv'
         file_name_buttom10 = 'result_'+str(alpha_num_3)+'_w_90100_2y.csv'
 
