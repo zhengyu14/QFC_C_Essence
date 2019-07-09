@@ -2,6 +2,7 @@
 # result_[alpha number]_[frequency]_[data percent]_[time interval].csv
 # e.g. result_001_w_0010_2y: top 10% of 2 year data of alpha 001 run weekly
 # e.g. result_001_w_90100_2y: bottom 10% of 2 year data of alpha 001 run weekly
+# csv header: Datetime,Benchmark,Strategy,Para1,Para2,Para3,Para4
 
 import _painter as pt
 
