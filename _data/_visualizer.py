@@ -9,7 +9,8 @@ import _painter as pt
 painter = pt.painter(1,25)
 
 # Show figures of one specific alpha factor
-painter.show_factor_single(14)
+    # Alpha factors to visualize: 017, 009, 018, 010, 012, 001
+painter.show_factor_single(9) 
 
 # Show and save figures within interval (it may take several minutes processing the data)
 #painter.show_factor_all()

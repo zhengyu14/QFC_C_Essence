@@ -8,8 +8,6 @@ import numpy as np
 
 # Constants
 cnst_index = '000300.XSHG'
-cnst_factor_name_boll_down = 'boll_down'
-cnst_col_name_close = 'close'
 cnst_commision = 0
 
 # 策略初始化
@@ -24,7 +22,7 @@ def initialize(context):
                              type = 'stock')
 
     # Monthly portfolio reallocation
-    run_weekly(market_open, 1, time='open', reference_security=cnst_index)(market_open, 1, time='open', reference_security=cnst_index)
+    run_weekly(market_open, 1, time='open', reference_security=cnst_index)
     #run_monthly(market_open, 1, time='open', reference_security=cnst_index)
 
 '''
@@ -53,23 +51,28 @@ def market_open(context):
 
     # 3. 对因子做线性加权处理， 并将结果进行排序。您在这一步可以研究自己的因子权重模型来优化策略结果。
     #    对因子做 rank 是因为不同的因子间由于量纲等原因无法直接相加，这是一种去量纲的方法。
-    final_factor = alpha_001(context.current_dt.date(), stock_list_all)
+    final_factor = alpha_018(context.current_dt.date(), stock_list_all)
 
     # 4. 由因子确定每日持仓的股票列表：
     #    采用因子值由大到小排名10%只股票作为目标持仓
     try:
-        stock_list = list(final_factor.sort_values(ascending=False)[:30].index)
-        #stock_list = list(final_factor.sort_values(ascending=False)[30:60].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[:30].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[30:60].index) #10%-20%
         #stock_list = list(final_factor.sort_values(ascending=False)[60:90].index)
         #stock_list = list(final_factor.sort_values(ascending=False)[90:120].index)
-        #stock_list = list(final_factor.sort_values(ascending=False)[120:150].index)
+        stock_list = list(final_factor.sort_values(ascending=False)[120:150].index) #40%-50%
         #stock_list = list(final_factor.sort_values(ascending=False)[150:180].index)
         #stock_list = list(final_factor.sort_values(ascending=False)[180:210].index)
-        #stock_list = list(final_factor.sort_values(ascending=False)[210:240].index)
+        #stock_list = list(final_factor.sort_values(ascending=False)[210:240].index) #70%-80%
         #stock_list = list(final_factor.sort_values(ascending=False)[240:270].index)
         #stock_list = list(final_factor.sort_values(ascending=False)[270:300].index)
     except:
-        stock_list = list(final_factor.order(ascending=False)[:30].index)
+        #stock_list = list(final_factor.order(ascending=False)[:30].index)
+        #stock_list = list(final_factor.order(ascending=False)[30:60].index)
+        stock_list = list(final_factor.order(ascending=False)[120:150].index)
+        #stock_list = list(final_factor.order(ascending=False)[210:240].index)
+        #stock_list = list(final_factor.order(ascending=False)[240:270].index)
+        #stock_list = list(final_factor.order(ascending=False)[270:300].index)
 
     # 5. 根据股票列表进行调仓：
     #    这里采取所有股票等额买入的方式，您可以使用自己的风险模型自由发挥个股的权重搭配

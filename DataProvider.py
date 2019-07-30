@@ -14,7 +14,7 @@ class dataProvider:
         # Initialize attributes
         self.securityIDCode = cl.securityIDCode000001XSHE # default as 000001.XSHE
         self.securityData = pd.DataFrame()
-        self.alpha = pd.DataFrame(columns = [cl.tinysoftAlphaCols])
+        #self.alpha = pd.DataFrame(columns = [cl.tinysoftAlphaCols])
         self.log = []
 
     '''
@@ -30,6 +30,12 @@ class dataProvider:
         if securityID is not None and securityCode is not None:
             self.securityIDCode = securityID + '.' + securityCode
 
+    def get_index_stocks(self):
+        self._login_jqdata()
+        data = jqd.get_index_stocks(self.securityIDCode)
+        self._logout_jqdata()
+        return data
+
     def get_allSecurityIndex(self):
         self.allSecurityIndex = jqd.get_all_securities(['stock']).index # get all stock id
 
@@ -40,7 +46,7 @@ class dataProvider:
     def get_security_data_daily(self, startDate, endDate):
         self._login_jqdata()
         try:
-            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDate, end_date=endDate, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='pre')
+            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDate, end_date=endDate, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='post')
         except:
             self._add_log(cl.msgInvalidSecurityIDCode)
         self._logout_jqdata()
@@ -49,7 +55,7 @@ class dataProvider:
     def get_security_data_min(self, startDatetime, endDatetime):
         self._login_jqdata()
         try:
-            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency=cl.jqDataFreqDaily, fields=None, skip_paused=True, fq='pre')
+            self.securityData = jqd.get_price(self.securityIDCode, start_date=startDatetime, end_date=endDatetime, frequency=cl.jqDataFreqMin, fields=None, skip_paused=True, fq='post')
         except:
             self._add_log(cl.msgInvalidSecurityIDCode)
         self._logout_jqdata()

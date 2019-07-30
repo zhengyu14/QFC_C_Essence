@@ -54,26 +54,45 @@ class painter:
             alpha_num += 1
             #ax.legend()
         #plt.show()
-        plt.savefig('alpha001_025.png') # save figure
+        plt.savefig('alpha001_025.png', dpi=150) # save figure
 
 
 
     def show_factor_single(self, alpha_num):
         alpha_num_3 = "%03d" % alpha_num
         file_name_top10 = 'result_'+str(alpha_num_3)+'_w_0010_2y.csv'
+        file_name_10_20 = 'result_'+str(alpha_num_3)+'_w_1020_2y.csv'
         file_name_40_50 = 'result_'+str(alpha_num_3)+'_w_4050_2y.csv'
+        #file_name_50_60 = 'result_'+str(alpha_num_3)+'_w_5060_2y.csv'
+        file_name_70_80 = 'result_'+str(alpha_num_3)+'_w_7080_2y.csv'
+        file_name_80_90 = 'result_'+str(alpha_num_3)+'_w_8090_2y.csv'
         file_name_buttom10 = 'result_'+str(alpha_num_3)+'_w_90100_2y.csv'
 
         ax = plt.subplot(1, 1, 1)
         data_top10 = pd.read_csv(file_name_top10)
-        ax.plot(data_top10['Datetime'], data_top10['Benchmark'], color='#596468', label='Benchmark')
-        ax.plot(data_top10['Datetime'], data_top10['Strategy'], color='#930a0a', label='Top 10%')
+        ax.plot(data_top10.Datetime, data_top10.Benchmark, color='#EE6868', label='Benchmark')
+        ax.plot(data_top10.Datetime, data_top10.Strategy, color='#b2d4f5', label='Top 10%')
+        try:
+            data_1020 = pd.read_csv(file_name_10_20)
+            ax.plot(data_1020.Datetime, data_1020.Strategy, color='#93bfeb', label='10% - 20%')
+        except:
+            pass
         try:
             data_4050 = pd.read_csv(file_name_40_50)
-            ax.plot(data_4050['Datetime'], data_4050['Strategy'], color='#a4650a', label='40% - 50%')
+            ax.plot(data_4050.Datetime, data_4050.Strategy, color='#74abe2', label='40% - 50%')
+        except:
+            pass
+        try:
+            data_7080 = pd.read_csv(file_name_70_80)
+            ax.plot(data_7080.Datetime, data_7080.Strategy, color='#5899DA', label='70% - 80%')
+        except:
+            pass
+        try:
+            data_8090 = pd.read_csv(file_name_80_90)
+            ax.plot(data_8090.Datetime, data_8090.Strategy, color='#367dc4', label='80% - 90%')
         except:
             pass
         data_buttom10 = pd.read_csv(file_name_buttom10)
-        ax.plot(data_buttom10['Datetime'], data_buttom10['Strategy'], color='#2a6d3c', label='Bottom 10%')
+        ax.plot(data_buttom10.Datetime, data_buttom10.Strategy, color='#1866b4', label='Bottom 10%')
         ax.legend()
         plt.show()
