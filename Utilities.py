@@ -22,6 +22,7 @@ while alpha < 25:
     alpha += 1
 
 max_distance.to_hdf('max_distance_001_025.h5', key='df')
+max_distance.to_csv('max_distance_001_025.csv')
 
 # Read max distance
 import pandas as pd

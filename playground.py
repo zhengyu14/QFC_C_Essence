@@ -1,9 +1,7 @@
-import pandas as pd
+import DataProvider as dp
+import datetime as dttm
 
-df = pd.DataFrame(columns = ['close'])
-close = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-         1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-df['close'] = close
-data_close = df['close']
-ma = data_close.rolling(window=20).mean()[len(data_close) - 1]
-std = data_close.std()
+provider = dp.dataProvider()
+provider.set_security_id_code('000905', 'XSHG')
+#security_data = provider.get_security_data_min(dttm.datetime(2007,1,1,9,0,0),dttm.datetime(2007,2,5,15,0,0))
+stock_code_list=provider.get_index_stocks()
